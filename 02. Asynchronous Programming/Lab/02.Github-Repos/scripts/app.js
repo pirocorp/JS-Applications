@@ -1,20 +1,21 @@
-function loadRepos() {
+function loadRepos() {	
+	const reposElement = document.getElementById('repos');
+
 	const username = document.getElementById('username').value;
 	const url = `https://api.github.com/users/${username}/repos`;
 
 	fetch(url)
 		.then(res => {
-			if(res.ok === false) {
+			if(res.ok == false) {
 				throw new Error(`${res.status} ${res.statusText}`);
 			}
 
 			return res.json();
 		})
-		.then(handleResponse)
-		.catch(err => console.log(err));
+		.then(handleResponse) // -> onResolve in promise
+		.catch(handleError); // onReject in promise
 
 	function handleResponse(data) {
-		const reposElement = document.getElementById('repos');
 		reposElement.innerHTML = '';
 		
 		for (const repo of data) {
@@ -27,5 +28,10 @@ function loadRepos() {
 			repoElement.appendChild(repoLink);
 			reposElement.appendChild(repoElement);
 		}
+	}
+
+	function handleError(error) {
+		reposElement.innerHTML = '';
+		reposElement.textContent = `${error.message} `;
 	}
 }
