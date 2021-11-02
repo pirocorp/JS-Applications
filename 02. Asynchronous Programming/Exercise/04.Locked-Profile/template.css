@@ -18,7 +18,7 @@ body {
   flex-wrap: wrap;
 }
 #main {
-  background: url(background.png) no-repeat center center;
+  /* background: url(background.png) no-repeat center center; */
   background-size: cover;
   margin-top: 1%;
 }
@@ -70,9 +70,13 @@ button {
   margin: 0 auto;
 }
 
-input[name="user3Username"],
-input[name="user2Username"],
-input[name="user1Username"] {
+input[type="radio"] {
+  margin-right: 10px;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="email"] {
   display: inline-block;
   width: 100%;
 }
