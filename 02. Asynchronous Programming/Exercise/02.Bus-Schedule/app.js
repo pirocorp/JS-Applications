@@ -15,3 +15,5 @@ function solve() {
 }
 
 let result = solve();
+
+//48:00:00
