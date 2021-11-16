@@ -1,3 +1,4 @@
+// Should use userService instead authService
 import requesterService from './requester.js';
 import authService from './authService.js';
 
