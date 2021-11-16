@@ -4,3 +4,4 @@ import { updateNav } from "./nav.js";
 
 await showHome();
 updateNav();
+

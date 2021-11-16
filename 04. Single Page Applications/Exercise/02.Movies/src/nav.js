@@ -52,3 +52,42 @@ export function updateNav() {
         guestElements.forEach(e => e.style.display = 'block');
     }    
 }
+
+/* Test for DI ctx */
+const ctx = {
+    updateNav,
+    goTo,
+    showView // from dom
+}
+
+const views = {
+    'home': showHome,
+    'login': showLogin,
+    'register': showRegister
+}
+
+const links = {
+    'homeLink': 'home',
+    'loginLink': 'login',
+    'registerLink': 'register',
+}
+
+function onNavElementClickHandler2(event) {
+    if(event.target.tagName == 'A') {
+        const name = links[event.target.id];
+
+        if(name) {
+            event.preventDefault();
+            goTo(name);
+        }
+    }
+};
+
+function goTo(viewName, ...params) {
+    const view = views[viewName];
+
+    if(typeof view == 'function') {
+        
+        view(ctx, ...params);
+    }
+}
