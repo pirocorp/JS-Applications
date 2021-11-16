@@ -24,15 +24,25 @@ async function generic(endpoint, method, data = {}) {
         const response = await fetch(uri, options);
 
         if(response.ok != true) {
+            if(response.status == 403 && token) {
+                authService.logout();
+
+                return generic(endpoint, method, data);
+            }
+
             const error = await response.json();
             throw new Error(error.message);
         }
 
-        const data = await response.json();
+        let responseData;
+
+        if(response.status != 204) {
+            responseData = await response.json();
+        }
 
         return {
             success: true,
-            data: data,
+            data: responseData,
         }
     } catch (error) {
         return {

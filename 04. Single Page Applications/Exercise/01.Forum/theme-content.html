@@ -23,7 +23,7 @@
         <nav>
             <ul>
                 <li>
-                    <a href="#">Home</a>
+                    <a href="/">Home</a>
                 </li>
             </ul>
         </nav>
@@ -36,7 +36,7 @@
             <div class="theme-title">
                 <div class="theme-name-wrapper">
                     <div class="theme-name">
-                        <h2>Angular 10</h2>
+                        <h2 id="title"></h2>
 
                     </div>
 
@@ -44,14 +44,14 @@
             </div>
             <!-- comment  -->
 
-            <div class="comment">
+            <div id="post" class="comment">
 
             </div>
 
             <div class="answer-comment">
                 <p><span>currentUser</span> comment:</p>
                 <div class="answer">
-                    <form>
+                    <form id="comment-form">
                         <textarea name="postText" id="comment" cols="30" rows="10"></textarea>
                         <div>
                             <label for="username">Username <span class="red">*</span></label>
@@ -71,5 +71,6 @@
         <p><span><a href="https://softuni.bg/forum">https://softuni.bg/forum</a></span></p>
     </footer>
 </body>
+<script type="module" src="./js/comments.js"></script>
 
 </html>

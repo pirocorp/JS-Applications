@@ -25,7 +25,7 @@
         <nav>
             <ul>
                 <li>
-                    <a href="#">Home</a>
+                    <a href="/">Home</a>
                 </li>
             </ul>
         </nav>
@@ -38,7 +38,7 @@
                 <div class="header-background">
                     <span>New Topic</span>
                 </div>
-                <form>
+                <form id="topic-form">
                     <div class="new-topic-title">
                         <label for="topicName">Title <span class="red">*</span></label>
                         <input type="text" name="topicName" id="topicName">
@@ -52,21 +52,16 @@
                         <textarea type="text" name="postText" id="postText" rows="8" class="height"></textarea>
                     </div>
                     <div class="new-topic-buttons">
-                        <button class="cancel">Cancel</button>
-                        <button class="public">Post</button>
+                        <button id="cancel-button" class="cancel">Cancel</button>
+                        <button id="post-button" class="public">Post</button>
                     </div>
 
                 </form>
             </div>
 
-            <div class="topic-title">
+            <div id="posts-container">
 
-                <!-- topic component  -->
-                <div class="topic-container">
-                    
-                </div>
-                
-
+            </div>
         </main>
 
     </div>
@@ -77,5 +72,5 @@
         <p><span><a href="https://softuni.bg/forum">https://softuni.bg/forum</a></span></p>
     </footer>
 </body>
-
+<script type="module" src="./js/app.js"></script>
 </html>
