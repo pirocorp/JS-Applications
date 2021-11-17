@@ -23,13 +23,15 @@ const views = {
     'register': showRegisterPage,
     'create': showCreatePage,
     'details': showDetailsPage,
-    'logout': logout,
 };
 
 const navElement = document.querySelector('nav');
 const main = document.querySelector('main');
 
 const showSection = (section) => main.replaceChildren(section);
+
+const logoutButtonElement = document.getElementById('logout-btn');
+logoutButtonElement.addEventListener('click', onLogoutButtonClickHandler);
 
 const ctx = {
     goTo,
@@ -71,7 +73,9 @@ export function updateNav() {
     }
 }
 
-async function logout() {
+async function onLogoutButtonClickHandler(event) {
+    event.preventDefault();
+
     const response = await userService.logout();
 
     if(response.success) {
@@ -79,4 +83,3 @@ async function logout() {
         await goTo('home')
     }
 }
-
