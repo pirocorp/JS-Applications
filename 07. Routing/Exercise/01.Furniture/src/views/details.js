@@ -57,7 +57,11 @@ async function loadItem(id, onDelete) {
         return
     }
 
-    const isOwner = usersService.getUserId() == response.data._ownerId;
+    let isOwner = false;
+
+    if(usersService.isAuthenticated()) {
+        isOwner = usersService.getUserId() == response.data._ownerId;
+    }
     
     return itemTemplate(response.data, isOwner, onDelete);
 }

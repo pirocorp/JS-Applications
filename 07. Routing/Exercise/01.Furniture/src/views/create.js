@@ -9,7 +9,7 @@ const createTemplate = (onSubmit, errorMsg, errors) => html`
     </div>
 </div>
 <form @submit=${onSubmit}>
-    ${errorMsg ? html`<div class="form-group error" style="margin-left:50px;">${errorMsg}</div>` : null}  
+    ${errorMsg ? html`<div class="form-group error" style="margin-left:50px;">${errorMsg.map(e => html`<p>${e}</p>`)}</div>` : null} 
     <div class="row space-top">
         <div class="col-md-4">
             <div class="form-group">
@@ -77,18 +77,72 @@ export function createPage(ctx) {
 
 function validateInput(target, callback) {
     const formData = [...(new FormData(target)).entries()];
-    let data = formData.reduce((a, [k, v]) => Object.assign(a, {[k]: v.trim()}) , {});
+    let input = formData.reduce((a, [k, v]) => Object.assign(a, {[k]: v.trim()}) , {});
+
+    let data = {
+        make: input.make,
+        model: input.model,
+        year: input.year,
+        description: input.description,
+        price: input.price,
+        img: input.img,
+        material: input.material,
+    }
+
+    let hasError = false;
+    const errors = formData.reduce((a, [k]) => Object.assign(a, {[k]: false}), {});
+    const errorMsg = [];
 
     const missing = formData.filter(([k, v]) => v.trim() == '' && k != 'material');
 
     if(missing.length > 0) {
-        const errors = missing.reduce((a, [k]) => Object.assign(a, {[k]: true}), {});
-        callback('Please fill all mandatory fields', errors);
+        missing.reduce((a, [k]) => Object.assign(a, {[k]: true}), errors);
+        errorMsg.push('Please fill all mandatory fields');
+        hasError = true;
+    }
+
+    if(data.make.length < 4) {
+        errorMsg.push('Make must be at least 4 symbols long.');
+        errors.make = true;        
+        hasError = true;
+    }
+
+    if(data.model.length < 4) {
+        errorMsg.push('Model must be at least 4 symbols long.');
+        errors.model = true;        
+        hasError = true;
+    }
+
+    const year = Number(data.year);
+
+    if(Number.isNaN(year) || year < 1950 || year > 2050) {
+        errorMsg.push('Year must be between 1950 and 2050.');
+        errors.year = true;        
+        hasError = true;
+    }
+
+    data.year = year;
+
+    if(data.description.length <= 10) {
+        errorMsg.push('Description must be more than 10 symbols.');
+        errors.description = true;        
+        hasError = true;
+    }
+
+    const price = Number(data.price);
+
+    if(Number.isNaN(price) || price <= 0) {
+        errorMsg.push('Price must be a positive number.');
+        errors.price = true;        
+        hasError = true;
+    }
+
+    if(hasError) {
+        callback(errorMsg, errors);
         return
     }
 
-    data.year = Number(data.year);
-    data.price = Number(data.price);
+    data.price = price;
 
     return data
 }
