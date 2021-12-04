@@ -41,8 +41,8 @@ const detailsTemplate = (book, isAuthenticated, isOwner, isLiked, likes, onDelet
 export async function detailsPage(ctx) {
     const bookId = ctx.params.id;
     const userId = userService.getUserId();
-    const bookResponse = await booksService.getById(bookId);
 
+    const bookResponse = await booksService.getById(bookId);
     const likesResponse = await likesService.getBookLikes(bookId);
     const bookIsLikedResponse = await likesService.bookIsLikedByUser(bookId, userId);
 
